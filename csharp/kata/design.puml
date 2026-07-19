@@ -1,5 +1,31 @@
 @startuml
 
-one -- other
+entity character
+entity health
+entity level
+entity alive
+entity dead
+entity status
+
+entity characterAction
+entity doDamage
+entity heal
+
+character *--> health
+character *--> level
+character *--> status
+
+status <|-- alive
+status <|-- dead
+
+character --> "hace" characterAction
+
+characterAction <|-- doDamage
+characterAction <|-- heal
+
+status --> "cuando está a 0" health
+
+doDamage --> "disminuye" health
+heal --> "aumenta" health
 
 @enduml
