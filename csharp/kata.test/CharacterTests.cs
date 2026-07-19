@@ -30,7 +30,7 @@ public class CharacterTests
         character.DoDamage(500);
         character.Heal(1000);
 
-        character.health.Should().Be(1000);
+        character.health.Should().Be(Character.maxHealth);
     }
 
     [Fact]
