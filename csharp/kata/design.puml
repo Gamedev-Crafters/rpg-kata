@@ -6,6 +6,9 @@ entity level
 entity alive
 entity dead
 entity status
+entity position
+entity maxRange
+entity distance
 
 entity characterAction
 entity doDamage
@@ -14,6 +17,8 @@ entity heal
 character *--> health
 character *--> level
 character *--> status
+character *--> position
+character *--> maxRange
 
 status <|-- alive
 status <|-- dead
@@ -27,5 +32,8 @@ status --> "cuando está a 0" health
 
 doDamage --> "disminuye" health
 heal --> "aumenta" health
+doDamage ..> maxRange
+doDamage ..> distance
+distance *--> "2" position
 
 @enduml

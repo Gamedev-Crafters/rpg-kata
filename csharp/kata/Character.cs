@@ -3,15 +3,32 @@
 public class Character
 {
     public const int maxHealth = 1000;
+    public int maxRange;
     public int level;
     public int health;
     public bool alive;
+    public int position;
 
-    public Character()
+    public Character(int maxRange, int position)
     {
         level = 1;
         health = maxHealth;
         alive = true;
+        this.maxRange = maxRange;
+        this.position = position;
+    }
+
+    public static Character ACharacter()
+    {
+        return new Character(1, 1);
+    }
+
+    public static Character Melee(int position) => new Character(2, position);
+    public static Character Ranged(int position) => new Character(20, position);
+
+    public bool IsInRange(Character character)
+    {
+        return Math.Abs(character.position - this.position) <= maxRange;
     }
 
     public void DoDamage(Character character, int damage)

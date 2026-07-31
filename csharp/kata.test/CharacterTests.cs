@@ -5,8 +5,8 @@ public class CharacterTests
     [Fact]
     public void DoDamageToCharacter_StillAlive()
     {
-        var defender = new Character();
-        var attacker = new Character();
+        var defender = Character.ACharacter();
+        var attacker = Character.ACharacter();
 
         attacker.DoDamage(defender, 100);
 
@@ -16,8 +16,8 @@ public class CharacterTests
     [Fact]
     public void DoDamageToCharacter_NotAlive()
     {
-        var defender = new Character();
-        var attacker = new Character();
+        var defender = Character.ACharacter();
+        var attacker = Character.ACharacter();
 
         attacker.DoDamage(defender, 2000);
 
@@ -27,8 +27,8 @@ public class CharacterTests
     [Fact]
     public void HealCharacter_ToFull()
     {
-        var defender = new Character();
-        var attacker = new Character();
+        var defender = Character.ACharacter();
+        var attacker = Character.ACharacter();
 
         attacker.DoDamage(defender, 500);
         defender.Heal(1000);
@@ -39,8 +39,8 @@ public class CharacterTests
     [Fact]
     public void CannotHealDeadCharacter()
     {
-        var defender = new Character();
-        var attacker = new Character();
+        var defender = Character.ACharacter();
+        var attacker = Character.ACharacter();
 
         attacker.DoDamage(defender, 1000);
         defender.Heal(1000);
@@ -51,8 +51,8 @@ public class CharacterTests
     [Fact]
     public void DoDamageToStrongerCharacter()
     {
-        var attacker = new Character();
-        var defender = new Character();
+        var attacker = Character.ACharacter();
+        var defender = Character.ACharacter();
         defender.level = 6;
 
         attacker.DoDamage(defender, 100);
@@ -63,12 +63,25 @@ public class CharacterTests
     [Fact]
     public void DoDamageToWeakerCharacter()
     {
-        var attacker = new Character();
-        var defender = new Character();
+        var attacker = Character.ACharacter();
+        var defender = Character.ACharacter();
         attacker.level = 6;
 
         attacker.DoDamage(defender, 100);
 
         defender.health.Should().Be(Character.maxHealth - 150);
+    }
+
+    [Fact]
+    public void CharacterIsInRange()
+    {
+        var attacker = Character.Melee(0);
+        var characterInRange = Character.Melee(2);
+        var anotherCharacterInRange = Character.Melee(-2);
+        var characterOutOfRange = Character.Melee(3);
+
+        attacker.IsInRange(characterInRange).Should().BeTrue();
+        attacker.IsInRange(anotherCharacterInRange).Should().BeTrue();
+        attacker.IsInRange(characterOutOfRange).Should().BeFalse();
     }
 }
