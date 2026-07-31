@@ -1,4 +1,7 @@
-﻿namespace kata;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace kata;
 
 public class Character
 {
@@ -8,6 +11,7 @@ public class Character
     public int health;
     public bool alive;
     public int position;
+    private List<string> factions  = new();
 
     public Character(int maxRange, int position)
     {
@@ -31,11 +35,21 @@ public class Character
         return Math.Abs(character.position - this.position) <= maxRange;
     }
 
+    public bool IsAlly(Character character)
+    {
+        return factions.Any(faction => character.factions.Contains(faction));
+    }
+
     public void DoDamage(Character character, int damage)
     {
         if (character == this)
         {
             throw new InvalidOperationException("No se puede hacer daño a si mismo.");
+        }
+
+        if (IsAlly(character))
+        {
+            throw new InvalidOperationException("Can't do damage to ally.");
         }
 
         if (!IsInRange(character))
@@ -53,6 +67,31 @@ public class Character
     {
         if (alive)
             health = Math.Min(health + heal, maxHealth);
+    }
+
+    public void JoinFaction(string faction)
+    {
+        if (IsInFaction(faction))
+        {
+            throw new InvalidOperationException("Character already is in that faction.");
+        }
+
+        factions.Add(faction);
+    }
+
+    public void LeaveFaction(string faction)
+    {
+        if (!IsInFaction(faction))
+        {
+            throw new InvalidOperationException("Character does not belong that faction.");
+        }
+
+        factions.Remove(faction);
+    }
+
+    public bool IsInFaction(string faction)
+    {
+        return factions.Contains(faction);
     }
 
     private int CalculateDamage(Character character, int damage)

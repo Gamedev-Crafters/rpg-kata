@@ -84,4 +84,34 @@ public class CharacterTests
         attacker.IsInRange(anotherCharacterInRange).Should().BeTrue();
         attacker.IsInRange(characterOutOfRange).Should().BeFalse();
     }
+
+    [Fact]
+    public void CharacterIsInFaction()
+    {
+        var character = Character.ACharacter();
+        character.JoinFaction("FactionA");
+
+        character.IsInFaction("FactionA").Should().BeTrue();
+        character.IsInFaction("FactionB").Should().BeFalse();
+    }
+
+    [Fact]
+    public void CharacterLeavesFaction()
+    {
+        var character = Character.ACharacter();
+        character.JoinFaction("FactionA");
+        character.LeaveFaction("FactionA");
+
+        character.IsInFaction("FactionA").Should().BeFalse();
+    }
+
+    /*
+    [Fact]
+    public void AreCharacterAllies()
+    {
+        var attacker = Character.ACharacter();
+        var ally = Character.ACharacter();
+
+    }
+    */
 }

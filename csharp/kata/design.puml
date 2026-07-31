@@ -9,6 +9,7 @@ entity status
 entity position
 entity maxRange
 entity distance
+entity faction
 
 entity characterAction
 entity doDamage
@@ -19,6 +20,7 @@ character *--> level
 character *--> status
 character *--> position
 character *--> maxRange
+character *--> "0..*" faction : "pertenece"
 
 status <|-- alive
 status <|-- dead
