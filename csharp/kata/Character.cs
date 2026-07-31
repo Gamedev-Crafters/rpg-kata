@@ -38,6 +38,11 @@ public class Character
             throw new InvalidOperationException("No se puede hacer daño a si mismo.");
         }
 
+        if (IsInRange(character))
+        {
+            throw new InvalidOperationException("El enemigo queda fuera de rango.");
+        }
+
         damage = CalculateDamage(character, damage);
 
         character.health = Math.Max(0, character.health - damage);
