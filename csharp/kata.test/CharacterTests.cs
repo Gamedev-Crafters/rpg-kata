@@ -105,6 +105,21 @@ public class CharacterTests
         character.IsInFaction("FactionA").Should().BeFalse();
     }
 
+    [Fact]
+    public void HealAlly()
+    {
+        var character = Character.ACharacter();
+        character.JoinFaction("FactionA");
+
+        var ally = Character.ACharacter();
+        ally.JoinFaction("FactionA");
+
+        character.Heal(ally, 100);
+
+        // El personaje no se va a curar porq esta a vida maxima de base
+        character.health.Should().Be(0);
+    }
+
     /*
     [Fact]
     public void AreCharacterAllies()

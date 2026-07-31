@@ -63,6 +63,16 @@ public class Character
         character.alive = character.health > 0;
     }
 
+    public void Heal(Character character, int heal)
+    {
+        if (this != character && !IsAlly(character))
+        {
+            throw new InvalidOperationException("Can't heal an enemy.");
+        }
+
+        character.Heal(heal);
+    }
+
     public void Heal(int heal)
     {
         if (alive)
